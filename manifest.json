@@ -1,0 +1,13 @@
+{
+  "name": "Bedrock Hub — Buscador de contenido",
+  "short_name": "Bedrock Hub",
+  "description": "Buscador de add-ons, texturas, shaders y mapas para Minecraft Bedrock.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07130f",
+  "theme_color": "#07130f",
+  "lang": "es-MX",
+  "icons": []
+}
