@@ -79,7 +79,6 @@ async function openDetails(item) {
     modal.classList.remove('hidden');
 
     try {
-        // Obtiene el archivo directo desde la API sin abrir páginas externas
         const res = await fetch(`https://api.modrinth.com/v2/project/${item.project_id}/version`);
         const versions = await res.json();
 
@@ -120,10 +119,8 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Registrar Service Worker para PWA
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
-// Carga inicial popular
 searchMods('bedrock');
