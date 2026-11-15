@@ -1,81 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#07130f">
-  <meta name="description" content="Buscador móvil de add-ons, texturas, shaders y mapas para Minecraft Bedrock.">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Bedrock Hub — Mods & Add-ons</title>
-  <link rel="manifest" href="manifest.json">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root { color-scheme: dark; --green:#10B981; }
-    * { -webkit-tap-highlight-color: transparent; }
-    html { scroll-behavior:smooth; }
-    body { background:#07130f; color:#e5f5ed; overscroll-behavior-y:contain; }
-    button,input { font:inherit; }
-    button,.touch { min-height:44px; }
-    .glass { background:rgba(13,31,24,.88); border:1px solid rgba(52,211,153,.13); backdrop-filter:blur(12px); }
-    .chip[aria-pressed="true"] { background:#10B981; color:#042016; border-color:#10B981; }
-    .card { background:linear-gradient(145deg,#10251c,#0b1b14); border:1px solid #1b3b2c; }
-    .safe-bottom { padding-bottom:calc(1rem + env(safe-area-inset-bottom)); }
-    .skeleton { background:linear-gradient(90deg,#10251c,#1a3427,#10251c); background-size:200% 100%; animation:shine 1.2s infinite; }
-    @keyframes shine { to { background-position:-200% 0; } }
-    ::-webkit-scrollbar { width:7px; } ::-webkit-scrollbar-thumb { background:#24523d;border-radius:8px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedrock Hub - Buscador de Mods</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e1e1e">
 </head>
-<body class="min-h-screen">
-  <header class="sticky top-0 z-30 glass">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      <a href="#" class="flex items-center gap-3 min-w-0" aria-label="Bedrock Hub inicio">
-        <div class="w-11 h-11 rounded-2xl bg-emerald-500 flex items-center justify-center text-2xl shadow-lg shadow-emerald-950">⛏️</div>
-        <div class="min-w-0"><div class="font-black tracking-tight text-lg leading-tight">BEDROCK <span class="text-emerald-400">HUB</span></div><div class="text-xs text-emerald-100/50">Explora. Descarga. Construye.</div></div>
-      </a>
-      <button id="favoritesToggle" class="touch px-4 rounded-xl border border-emerald-800 text-sm font-semibold hover:bg-emerald-950" aria-pressed="false">♡ <span class="hidden sm:inline">Favoritos</span> <span id="favCount" class="text-emerald-400">0</span></button>
-    </div>
-  </header>
+<body>
+    <header>
+        <h1>⛏️ Bedrock Hub</h1>
+        <p>Busca add-ons, texturas y mapas sin salir de la app</p>
+    </header>
 
-  <main class="max-w-7xl mx-auto px-4 pt-7 pb-12 safe-bottom">
-    <section class="rounded-3xl p-5 sm:p-8 mb-6 overflow-hidden relative" style="background:radial-gradient(circle at 85% 15%,#145c3b 0,transparent 35%),linear-gradient(135deg,#102c20,#091710)">
-      <div class="relative z-10 max-w-2xl">
-        <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-emerald-300 mb-3"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Biblioteca comunitaria</div>
-        <h1 class="text-3xl sm:text-5xl font-black leading-tight mb-3">Tu próximo mundo <span class="text-emerald-400">empieza aquí.</span></h1>
-        <p class="text-emerald-50/65 text-sm sm:text-base mb-6">Busca contenido para Minecraft Bedrock: add-ons, texturas, shaders y mapas.</p>
-        <form id="searchForm" class="flex gap-2">
-          <label class="sr-only" for="searchInput">Buscar contenido</label>
-          <input id="searchInput" class="min-w-0 flex-1 bg-black/30 border border-emerald-800 rounded-xl px-4 py-3 outline-none focus:border-emerald-400" placeholder="Ej. animales, armas, survival..." autocomplete="off">
-          <button class="touch px-5 rounded-xl bg-emerald-500 text-emerald-950 font-black hover:bg-emerald-400" type="submit">Buscar</button>
-        </form>
-      </div>
-      <div class="absolute right-5 bottom-2 text-7xl sm:text-9xl opacity-10 select-none" aria-hidden="true">🟩</div>
-    </section>
+    <main>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Escribe el mod que buscas (ej. Shaders, Autos...)">
+            <button id="searchBtn">Buscar</button>
+        </div>
 
-    <nav class="flex gap-2 overflow-x-auto pb-3 mb-4" aria-label="Filtros por categoría">
-      <button class="chip touch shrink-0 rounded-full border border-emerald-800 px-5 font-semibold text-sm" data-category="all" aria-pressed="true">Todo</button>
-      <button class="chip touch shrink-0 rounded-full border border-emerald-800 px-5 font-semibold text-sm" data-category="addon" aria-pressed="false">🧩 Add-ons</button>
-      <button class="chip touch shrink-0 rounded-full border border-emerald-800 px-5 font-semibold text-sm" data-category="texture" aria-pressed="false">🎨 Texturas</button>
-      <button class="chip touch shrink-0 rounded-full border border-emerald-800 px-5 font-semibold text-sm" data-category="shader" aria-pressed="false">✨ Shaders</button>
-      <button class="chip touch shrink-0 rounded-full border border-emerald-800 px-5 font-semibold text-sm" data-category="map" aria-pressed="false">🗺️ Mapas</button>
-    </nav>
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Todo</button>
+            <button class="filter-btn" data-category="addon">Add-ons</button>
+            <button class="filter-btn" data-category="texture">Texturas</button>
+            <button class="filter-btn" data-category="map">Mapas</button>
+        </div>
 
-    <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
-      <div><h2 id="sectionTitle" class="text-xl sm:text-2xl font-extrabold">Contenido para descubrir</h2><p id="status" class="text-sm text-emerald-100/50 mt-1" role="status" aria-live="polite">Busca en varias fuentes para empezar.</p></div>
-      <select id="sortSelect" class="touch bg-[#10251c] border border-emerald-900 rounded-xl px-3 text-sm" aria-label="Ordenar resultados"><option value="relevance">Más relevantes</option><option value="downloads">Más descargados</option><option value="updated">Actualizados</option></select>
+        <div id="loading" class="hidden">Buscando mods... 🔍</div>
+        <div id="resultsContainer" class="results-grid"></div>
+    </main>
+
+    <!-- Modal para ver detalles y descarga directa sin salir -->
+    <div id="detailModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="closeModal">&times;</span>
+            <img id="modalImage" src="" alt="Mod Preview">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <a id="modalDownloadBtn" href="#" target="_blank" class="download-btn">Descargar Archivo Directo</a>
+        </div>
     </div>
 
-    <div id="sourceNotice" class="glass rounded-xl p-3 text-xs text-emerald-100/60 mb-4">
-      <strong class="text-emerald-300">Fuentes:</strong> Modrinth (API), MCPEDL y Planet Minecraft (búsqueda web). Modrinth contiene principalmente proyectos Java; verifica siempre que cada descarga indique compatibilidad con Bedrock.
-    </div>
-    <section id="results" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" aria-label="Resultados de búsqueda">
-      <div class="card rounded-2xl p-5 sm:col-span-2 xl:col-span-3 text-center">
-        <div class="text-4xl mb-3">🌿</div><h3 class="font-bold text-lg">Encuentra algo increíble</h3><p class="text-sm text-emerald-100/50 mt-1">Escribe un término o elige una categoría.</p>
-      </div>
-    </section>
-    <footer class="text-center text-xs text-emerald-100/35 mt-10">Bedrock Hub no está afiliado con Mojang ni Microsoft. Comprueba versión, formato y compatibilidad antes de instalar.</footer>
-  </main>
-  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-emerald-400 text-emerald-950 font-bold text-sm px-5 py-3 rounded-xl shadow-xl opacity-0 pointer-events-none transition-opacity" role="status"></div>
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
