@@ -1,13 +1,21 @@
 {
-  "name": "Bedrock Hub — Buscador de contenido",
-  "short_name": "Bedrock Hub",
-  "description": "Buscador de add-ons, texturas, shaders y mapas para Minecraft Bedrock.",
+  "name": "Bedrock Hub",
+  "short_name": "BedrockHub",
   "start_url": "./index.html",
-  "scope": "./",
   "display": "standalone",
-  "orientation": "any",
-  "background_color": "#07130f",
-  "theme_color": "#07130f",
-  "lang": "es-MX",
-  "icons": []
+  "background_color": "#121212",
+  "theme_color": "#4caf50",
+  "description": "Buscador y descargador directo de add-ons, texturas y shaders.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/5968/5968292.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/5968/5968292.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
