@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#4caf50",
-  "description": "Buscador y descargador directo de add-ons, texturas y shaders.",
+  "description": "Catálogo y visor de add-ons, texturas, shaders y mapas para Minecraft Bedrock.",
   "icons": [
     {
       "src": "https://images.unsplash.com/photo-1563089145-599997674d42?w=192",
