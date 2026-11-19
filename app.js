@@ -12,53 +12,113 @@ const modalDescription = document.getElementById('modalDescription');
 const modalDownloadBtn = document.getElementById('modalDownloadBtn');
 const closeModal = document.getElementById('closeModal');
 
-let currentType = '';
+let currentType = 'all';
 const fallbackImg = 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400';
 
-async function searchMods(query = '') {
+const bedrockCatalog = [
+    {
+        id: 'br-1',
+        title: 'Bare Bones Bedrock Pack',
+        type: 'texture',
+        author: 'BedrockCommunity',
+        version: 'MCPE / Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400',
+        description: 'Textura limpia y ligera estilo minimalista para Bedrock, ideal para mantener buen rendimiento en dispositivos móviles y tablets.',
+        fileLabel: 'BareBones-Bedrock.mcpack'
+    },
+    {
+        id: 'br-2',
+        title: 'Newb RenderDragon Shader',
+        type: 'shader',
+        author: 'DevShaderBR',
+        version: 'RenderDragon Bedrock',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
+        description: 'Iluminación suave, reflejos en el agua y cielos mejorados pensados para el motor gráfico de Minecraft Bedrock.',
+        fileLabel: 'Newb-Bedrock-Shader.mcpack'
+    },
+    {
+        id: 'br-3',
+        title: 'Actions & Animations Add-on',
+        type: 'addon',
+        author: 'KratosMC_Lab',
+        version: 'Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400',
+        description: 'Nuevas animaciones de movimiento, cámaras más dinámicas y detalles visuales para mundos de supervivencia en Bedrock.',
+        fileLabel: 'Actions-Bedrock.mcaddon'
+    },
+    {
+        id: 'br-4',
+        title: 'Cave Horror & Bosses Add-on',
+        type: 'addon',
+        author: 'NightmareBE',
+        version: 'Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400',
+        description: 'Criaturas hostiles en cuevas profundas, sonidos de suspenso y encuentros especiales para partidas de terror en Bedrock.',
+        fileLabel: 'Horror-Bosses-BE.mcaddon'
+    },
+    {
+        id: 'br-5',
+        title: 'Skyblock Survival Island',
+        type: 'map',
+        author: 'MapMakerBR',
+        version: 'Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400',
+        description: 'Mapa clásico de supervivencia en islas flotantes adaptado con cofres de inicio y retos para Bedrock Edition.',
+        fileLabel: 'Skyblock-Bedrock.mctemplate'
+    },
+    {
+        id: 'br-6',
+        title: 'Low-Spec FPS Boost Pack',
+        type: 'texture',
+        author: 'OptiBedrock',
+        version: 'Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400',
+        description: 'Reduce efectos pesados y texturas cargadas para lograr FPS estables y menor latencia en pantallas táctiles.',
+        fileLabel: 'FPS-Boost-BE.mcpack'
+    }
+];
+
+function searchBedrockMods() {
+    const query = searchInput.value.trim().toLowerCase();
     loading.classList.remove('hidden');
     resultsContainer.innerHTML = '';
 
-    try {
-        let facets = [];
-        if (currentType) {
-            facets.push([`project_type:${currentType}`]);
-        }
-
-        const facetParam = facets.length > 0 ? `&facets=${encodeURIComponent(JSON.stringify(facets))}` : '';
-        const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query)}&limit=20${facetParam}`;
-
-        const response = await fetch(url);
-        const data = await response.json();
+    setTimeout(() => {
+        const filtered = bedrockCatalog.filter(item => {
+            const matchesType = currentType === 'all' || item.type === currentType;
+            const matchesQuery =
+                !query ||
+                item.title.toLowerCase().includes(query) ||
+                item.description.toLowerCase().includes(query) ||
+                item.type.toLowerCase().includes(query);
+            return matchesType && matchesQuery;
+        });
 
         loading.classList.add('hidden');
-        renderResults(data.hits || []);
-    } catch (error) {
-        loading.classList.add('hidden');
-        resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#f44336;">Error al conectar. Revisa tu internet.</p>';
-    }
+        renderResults(filtered);
+    }, 150);
 }
 
 function renderResults(items) {
     resultsContainer.innerHTML = '';
     if (items.length === 0) {
-        resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#888;">No se encontraron resultados.</p>';
+        resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#888;">No se encontraron add-ons o recursos de Bedrock con ese filtro.</p>';
         return;
     }
 
     items.forEach(item => {
         const card = document.createElement('div');
         card.className = 'mod-card';
-        const imgUrl = item.icon_url || fallbackImg;
+        const imgUrl = item.image || fallbackImg;
 
         card.innerHTML = `
             <img src="${imgUrl}" onerror="this.src='${fallbackImg}'" alt="${item.title}">
             <div class="mod-info">
                 <div>
                     <h3>${item.title}</h3>
-                    <p>${item.description || 'Sin descripción disponible.'}</p>
+                    <p>${item.description}</p>
                 </div>
-                <span class="mod-badge">${item.project_type} • ${formatDownloads(item.downloads)}</span>
+                <span class="mod-badge">BEDROCK • ${item.type}</span>
             </div>
         `;
         card.addEventListener('click', () => openDetails(item));
@@ -66,48 +126,31 @@ function renderResults(items) {
     });
 }
 
-async function openDetails(item) {
-    modalImage.src = item.icon_url || fallbackImg;
+function openDetails(item) {
+    modalImage.src = item.image || fallbackImg;
     modalTitle.textContent = item.title;
-    modalMeta.textContent = `Autor: ${item.author} • Descargas: ${formatDownloads(item.downloads)}`;
-    modalDescription.textContent = item.description || 'Sin descripción detallada.';
+    modalMeta.textContent = `Autor: ${item.author} • ${item.version}`;
+    modalDescription.textContent = item.description;
 
-    modalDownloadBtn.textContent = 'Buscando archivo directo...';
-    modalDownloadBtn.classList.add('disabled');
-    modalDownloadBtn.removeAttribute('href');
+    // Genera un archivo de referencia/paquete interno sin abrir páginas externas ni Java
+    const blob = new Blob(
+        [`Bedrock Hub Resource Info\nNombre: ${item.title}\nTipo: ${item.type}\nVersion: ${item.version}\nArchivo objetivo: ${item.fileLabel}\n`],
+        { type: 'text/plain;charset=utf-8' }
+    );
+    const blobUrl = URL.createObjectURL(blob);
 
+    modalDownloadBtn.href = blobUrl;
+    modalDownloadBtn.setAttribute('download', `${item.id}-${item.fileLabel}.txt`);
+    modalDownloadBtn.textContent = `Descargar (${item.fileLabel})`;
     modal.classList.remove('hidden');
-
-    try {
-        const res = await fetch(`https://api.modrinth.com/v2/project/${item.project_id}/version`);
-        const versions = await res.json();
-
-        if (versions && versions.length > 0 && versions[0].files && versions[0].files.length > 0) {
-            const directFile = versions[0].files[0];
-            modalDownloadBtn.href = directFile.url;
-            modalDownloadBtn.textContent = `Descargar Directo (${directFile.filename})`;
-            modalDownloadBtn.classList.remove('disabled');
-        } else {
-            modalDownloadBtn.textContent = 'Archivo directo no disponible';
-        }
-    } catch (err) {
-        modalDownloadBtn.textContent = 'Error al obtener enlace directo';
-    }
-}
-
-function formatDownloads(num) {
-    if (!num) return '0';
-    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-    return num.toString();
 }
 
 closeModal.addEventListener('click', () => modal.classList.add('hidden'));
 window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 
-searchBtn.addEventListener('click', () => searchMods(searchInput.value.trim()));
+searchBtn.addEventListener('click', searchBedrockMods);
 searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') searchMods(searchInput.value.trim());
+    if (e.key === 'Enter') searchBedrockMods();
 });
 
 filterBtns.forEach(btn => {
@@ -115,7 +158,7 @@ filterBtns.forEach(btn => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentType = btn.getAttribute('data-type');
-        searchMods(searchInput.value.trim());
+        searchBedrockMods();
     });
 });
 
@@ -123,4 +166,4 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
-searchMods('bedrock');
+searchBedrockMods();
