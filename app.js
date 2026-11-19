@@ -16,7 +16,6 @@ let currentType = 'all';
 const fallbackImg = 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400';
 
 const bedrockCatalog = [
-    // ADD-ONS
     {
         id: 'addon-1',
         title: 'Actions and Stuff Bedrock',
@@ -24,7 +23,7 @@ const bedrockCatalog = [
         author: 'BedrockStudio',
         version: 'Minecraft Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400',
-        description: 'Add-on para Bedrock que agrega animaciones fluidas, detalles de movimiento y mejoras visuales sin salir del estilo del juego.',
+        description: 'Add-on para Bedrock con animaciones fluidas, detalles de movimiento y mejoras visuales sin salir del estilo del juego.',
         fileLabel: 'Actions-Stuff-Bedrock.mcaddon'
     },
     {
@@ -34,7 +33,7 @@ const bedrockCatalog = [
         author: 'KratosMC_Lab',
         version: 'Minecraft Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400',
-        description: 'Agrega criaturas hostiles en cuevas oscuras y jefes especiales pensados para partidas de terror y supervivencia en Bedrock.',
+        description: 'Criaturas hostiles en cuevas oscuras y jefes especiales pensados para supervivencia y terror en Bedrock.',
         fileLabel: 'Cave-Horror-Bosses-BE.mcaddon'
     },
     {
@@ -47,8 +46,6 @@ const bedrockCatalog = [
         description: 'Muebles, lamparas y bloques decorativos compatibles con Minecraft Bedrock para casas y bases.',
         fileLabel: 'Furniture-Decor-BE.mcaddon'
     },
-
-    // TEXTURAS
     {
         id: 'tex-1',
         title: 'Bare Bones Bedrock Pack',
@@ -66,11 +63,9 @@ const bedrockCatalog = [
         author: 'OptiBedrock',
         version: 'Minecraft Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400',
-        description: 'Pack optimizado para Bedrock enfocado en subir FPS, reducir carga grafica y mejorar la fluidez en pantalla tactil.',
+        description: 'Pack optimizado para Bedrock enfocado en subir FPS, reducir carga grafica y mejorar la fluidez tactil.',
         fileLabel: 'FPS-Boost-Bedrock.mcpack'
     },
-
-    // SHADERS (SOLO BEDROCK)
     {
         id: 'shd-1',
         title: 'Newb X Bedrock Shader',
@@ -83,7 +78,7 @@ const bedrockCatalog = [
     },
     {
         id: 'shd-2',
-        title: 'Vanilla RTX / Vibrant Bedrock',
+        title: 'Vanilla RTX Vibrant Bedrock',
         type: 'shader',
         author: 'BedrockShaders',
         version: 'Bedrock 1.21+',
@@ -91,8 +86,6 @@ const bedrockCatalog = [
         description: 'Sombras suaves, mejor contraste y cielo renovado exclusivamente para ediciones Bedrock.',
         fileLabel: 'Vibrant-Bedrock-Shader.mcpack'
     },
-
-    // MAPAS
     {
         id: 'map-1',
         title: 'One Block Survival Bedrock',
@@ -154,7 +147,7 @@ function renderResults(items) {
                     <h3>${item.title}</h3>
                     <p>${item.description}</p>
                 </div>
-                <span class="mod-badge">BEDROCK • ${item.type}</span>
+                <span class="mod-badge">BEDROCK - ${item.type}</span>
             </div>
         `;
         card.addEventListener('click', () => openDetails(item));
@@ -165,15 +158,18 @@ function renderResults(items) {
 function openDetails(item) {
     modalImage.src = item.image || fallbackImg;
     modalTitle.textContent = item.title;
-    modalMeta.textContent = `${item.author} • ${item.version}`;
+    modalMeta.textContent = `${item.author} - ${item.version}`;
     modalDescription.textContent = item.description;
 
-    const blob = new Blob(
-        [
-            `Bedrock Hub\nRecurso: ${item.title}\nCategoria: ${item.type}\nVersion: ${item.version}\nArchivo: ${item.fileLabel}\n`
-        ],
-        { type: 'text/plain;charset=utf-8' }
-    );
+    const textContent = [
+        'Bedrock Hub',
+        'Recurso: ' + item.title,
+        'Categoria: ' + item.type,
+        'Version: ' + item.version,
+        'Archivo: ' + item.fileLabel
+    ].join('\n');
+
+    const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
     const blobUrl = URL.createObjectURL(blob);
 
     modalDownloadBtn.href = blobUrl;
@@ -203,7 +199,7 @@ filterBtns.forEach(btn => {
 });
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js?v=bedrock3').catch(() => {});
+    navigator.serviceWorker.register('./sw.js?v=bedrock4').catch(() => {});
 }
 
 runFilter();
