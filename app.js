@@ -16,93 +16,129 @@ let currentType = 'all';
 const fallbackImg = 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400';
 
 const bedrockCatalog = [
+    // ADD-ONS
     {
-        id: 'br-1',
+        id: 'addon-1',
+        title: 'Actions and Stuff Bedrock',
+        type: 'addon',
+        author: 'BedrockStudio',
+        version: 'Minecraft Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400',
+        description: 'Add-on para Bedrock que agrega animaciones fluidas, detalles de movimiento y mejoras visuales sin salir del estilo del juego.',
+        fileLabel: 'Actions-Stuff-Bedrock.mcaddon'
+    },
+    {
+        id: 'addon-2',
+        title: 'Cave Horror and Bosses BE',
+        type: 'addon',
+        author: 'KratosMC_Lab',
+        version: 'Minecraft Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400',
+        description: 'Agrega criaturas hostiles en cuevas oscuras y jefes especiales pensados para partidas de terror y supervivencia en Bedrock.',
+        fileLabel: 'Cave-Horror-Bosses-BE.mcaddon'
+    },
+    {
+        id: 'addon-3',
+        title: 'Furniture and Decor BE',
+        type: 'addon',
+        author: 'CraftBuildersBE',
+        version: 'Minecraft Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400',
+        description: 'Muebles, lamparas y bloques decorativos compatibles con Minecraft Bedrock para casas y bases.',
+        fileLabel: 'Furniture-Decor-BE.mcaddon'
+    },
+
+    // TEXTURAS
+    {
+        id: 'tex-1',
         title: 'Bare Bones Bedrock Pack',
         type: 'texture',
         author: 'BedrockCommunity',
-        version: 'Bedrock 1.21+',
+        version: 'Minecraft Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400',
-        description: 'Textura limpia y ligera para Bedrock, pensada para mantener buen rendimiento en dispositivos moviles y tablets.',
-        fileLabel: 'BareBones-Bedrock.mcpack'
+        description: 'Textura limpia y colorida para Bedrock, ideal para mantener buen rendimiento en tablets y celulares.',
+        fileLabel: 'Bare-Bones-Bedrock.mcpack'
     },
     {
-        id: 'br-2',
-        title: 'Newb RenderDragon Shader',
-        type: 'shader',
-        author: 'DevShaderBR',
-        version: 'RenderDragon Bedrock',
-        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
-        description: 'Iluminacion suave, reflejos en el agua y cielos ajustados para Minecraft Bedrock.',
-        fileLabel: 'Newb-Bedrock-Shader.mcpack'
-    },
-    {
-        id: 'br-3',
-        title: 'Actions and Animations Add-on',
-        type: 'addon',
-        author: 'KratosMC_Lab',
-        version: 'Bedrock 1.21+',
-        image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400',
-        description: 'Nuevas animaciones de movimiento y detalles visuales para mundos de supervivencia en Bedrock.',
-        fileLabel: 'Actions-Bedrock.mcaddon'
-    },
-    {
-        id: 'br-4',
-        title: 'Cave Horror and Bosses Add-on',
-        type: 'addon',
-        author: 'NightmareBE',
-        version: 'Bedrock 1.21+',
-        image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400',
-        description: 'Criaturas hostiles en cuevas profundas y encuentros de terror para partidas en Bedrock.',
-        fileLabel: 'Horror-Bosses-BE.mcaddon'
-    },
-    {
-        id: 'br-5',
-        title: 'Skyblock Survival Island',
-        type: 'map',
-        author: 'MapMakerBR',
-        version: 'Bedrock 1.21+',
-        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400',
-        description: 'Mapa clasico de supervivencia en islas flotantes adaptado para Minecraft Bedrock.',
-        fileLabel: 'Skyblock-Bedrock.mctemplate'
-    },
-    {
-        id: 'br-6',
-        title: 'Low-Spec FPS Boost Pack',
+        id: 'tex-2',
+        title: 'Low-Spec FPS Boost Bedrock',
         type: 'texture',
         author: 'OptiBedrock',
-        version: 'Bedrock 1.21+',
+        version: 'Minecraft Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400',
-        description: 'Reduce efectos pesados y carga grafica para mantener FPS estables y baja latencia.',
-        fileLabel: 'FPS-Boost-BE.mcpack'
+        description: 'Pack optimizado para Bedrock enfocado en subir FPS, reducir carga grafica y mejorar la fluidez en pantalla tactil.',
+        fileLabel: 'FPS-Boost-Bedrock.mcpack'
+    },
+
+    // SHADERS (SOLO BEDROCK)
+    {
+        id: 'shd-1',
+        title: 'Newb X Bedrock Shader',
+        type: 'shader',
+        author: 'NewbBedrockTeam',
+        version: 'Bedrock RenderDragon',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
+        description: 'Shader exclusivo para Minecraft Bedrock con reflejos en agua, iluminacion suave y bajo consumo en moviles.',
+        fileLabel: 'NewbX-Bedrock.mcpack'
+    },
+    {
+        id: 'shd-2',
+        title: 'Vanilla RTX / Vibrant Bedrock',
+        type: 'shader',
+        author: 'BedrockShaders',
+        version: 'Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400',
+        description: 'Sombras suaves, mejor contraste y cielo renovado exclusivamente para ediciones Bedrock.',
+        fileLabel: 'Vibrant-Bedrock-Shader.mcpack'
+    },
+
+    // MAPAS
+    {
+        id: 'map-1',
+        title: 'One Block Survival Bedrock',
+        type: 'map',
+        author: 'MapsBedrock',
+        version: 'Minecraft Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400',
+        description: 'Empieza en un solo bloque flotante en Bedrock y desbloquea fases y recursos conforme avanzas.',
+        fileLabel: 'OneBlock-Bedrock.mctemplate'
+    },
+    {
+        id: 'map-2',
+        title: 'Horror Mansion Escape BE',
+        type: 'map',
+        author: 'NightmareBE',
+        version: 'Minecraft Bedrock 1.21+',
+        image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400',
+        description: 'Mapa de misterio y terror para Minecraft Bedrock con rutas, pistas y eventos dentro del mundo.',
+        fileLabel: 'Horror-Mansion-BE.mctemplate'
     }
 ];
 
-function searchBedrockMods() {
+function runFilter() {
     const query = searchInput.value.trim().toLowerCase();
     loading.classList.remove('hidden');
     resultsContainer.innerHTML = '';
 
-    setTimeout(() => {
-        const filtered = bedrockCatalog.filter(item => {
-            const matchesType = currentType === 'all' || item.type === currentType;
-            const matchesQuery =
-                !query ||
-                item.title.toLowerCase().includes(query) ||
-                item.description.toLowerCase().includes(query) ||
-                item.type.toLowerCase().includes(query);
-            return matchesType && matchesQuery;
-        });
+    const filtered = bedrockCatalog.filter(item => {
+        const matchesType = currentType === 'all' || item.type === currentType;
+        const matchesQuery =
+            !query ||
+            item.title.toLowerCase().includes(query) ||
+            item.description.toLowerCase().includes(query) ||
+            item.type.toLowerCase().includes(query);
+        return matchesType && matchesQuery;
+    });
 
-        loading.classList.add('hidden');
-        renderResults(filtered);
-    }, 150);
+    loading.classList.add('hidden');
+    renderResults(filtered);
 }
 
 function renderResults(items) {
     resultsContainer.innerHTML = '';
-    if (items.length === 0) {
-        resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#888;">No se encontraron resultados de Bedrock.</p>';
+
+    if (!items || items.length === 0) {
+        resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#888; padding: 20px;">No hay resultados para esa busqueda o filtro en Bedrock.</p>';
         return;
     }
 
@@ -129,12 +165,12 @@ function renderResults(items) {
 function openDetails(item) {
     modalImage.src = item.image || fallbackImg;
     modalTitle.textContent = item.title;
-    modalMeta.textContent = `Autor: ${item.author} • ${item.version}`;
+    modalMeta.textContent = `${item.author} • ${item.version}`;
     modalDescription.textContent = item.description;
 
     const blob = new Blob(
         [
-            `Bedrock Hub Resource\nNombre: ${item.title}\nTipo: ${item.type}\nVersion: ${item.version}\nArchivo: ${item.fileLabel}\n`
+            `Bedrock Hub\nRecurso: ${item.title}\nCategoria: ${item.type}\nVersion: ${item.version}\nArchivo: ${item.fileLabel}\n`
         ],
         { type: 'text/plain;charset=utf-8' }
     );
@@ -151,9 +187,10 @@ window.addEventListener('click', (e) => {
     if (e.target === modal) modal.classList.add('hidden');
 });
 
-searchBtn.addEventListener('click', searchBedrockMods);
+searchBtn.addEventListener('click', runFilter);
+searchInput.addEventListener('input', runFilter);
 searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') searchBedrockMods();
+    if (e.key === 'Enter') runFilter();
 });
 
 filterBtns.forEach(btn => {
@@ -161,12 +198,12 @@ filterBtns.forEach(btn => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentType = btn.getAttribute('data-type');
-        searchBedrockMods();
+        runFilter();
     });
 });
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
+    navigator.serviceWorker.register('./sw.js?v=bedrock3').catch(() => {});
 }
 
-searchBedrockMods();
+runFilter();
