@@ -24,7 +24,7 @@ async function searchMods(query = '') {
         if (currentType) {
             facets.push([`project_type:${currentType}`]);
         }
-        
+
         const facetParam = facets.length > 0 ? `&facets=${encodeURIComponent(JSON.stringify(facets))}` : '';
         const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query)}&limit=20${facetParam}`;
 
@@ -58,7 +58,7 @@ function renderResults(items) {
                     <h3>${item.title}</h3>
                     <p>${item.description || 'Sin descripción disponible.'}</p>
                 </div>
-                <span class="mod-badge">${item.project_type} • ⬇️ ${formatDownloads(item.downloads)}</span>
+                <span class="mod-badge">${item.project_type} • ${formatDownloads(item.downloads)}</span>
             </div>
         `;
         card.addEventListener('click', () => openDetails(item));
@@ -71,11 +71,11 @@ async function openDetails(item) {
     modalTitle.textContent = item.title;
     modalMeta.textContent = `Autor: ${item.author} • Descargas: ${formatDownloads(item.downloads)}`;
     modalDescription.textContent = item.description || 'Sin descripción detallada.';
-    
-    modalDownloadBtn.textContent = 'Buscando archivo directo... ⏳';
+
+    modalDownloadBtn.textContent = 'Buscando archivo directo...';
     modalDownloadBtn.classList.add('disabled');
     modalDownloadBtn.removeAttribute('href');
-    
+
     modal.classList.remove('hidden');
 
     try {
@@ -85,7 +85,7 @@ async function openDetails(item) {
         if (versions && versions.length > 0 && versions[0].files && versions[0].files.length > 0) {
             const directFile = versions[0].files[0];
             modalDownloadBtn.href = directFile.url;
-            modalDownloadBtn.textContent = `⬇️ Descargar Directo (${directFile.filename})`;
+            modalDownloadBtn.textContent = `Descargar Directo (${directFile.filename})`;
             modalDownloadBtn.classList.remove('disabled');
         } else {
             modalDownloadBtn.textContent = 'Archivo directo no disponible';
