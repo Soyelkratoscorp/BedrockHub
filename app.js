@@ -21,9 +21,9 @@ const bedrockCatalog = [
         title: 'Bare Bones Bedrock Pack',
         type: 'texture',
         author: 'BedrockCommunity',
-        version: 'MCPE / Bedrock 1.21+',
+        version: 'Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400',
-        description: 'Textura limpia y ligera estilo minimalista para Bedrock, ideal para mantener buen rendimiento en dispositivos móviles y tablets.',
+        description: 'Textura limpia y ligera para Bedrock, pensada para mantener buen rendimiento en dispositivos moviles y tablets.',
         fileLabel: 'BareBones-Bedrock.mcpack'
     },
     {
@@ -33,27 +33,27 @@ const bedrockCatalog = [
         author: 'DevShaderBR',
         version: 'RenderDragon Bedrock',
         image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
-        description: 'Iluminación suave, reflejos en el agua y cielos mejorados pensados para el motor gráfico de Minecraft Bedrock.',
+        description: 'Iluminacion suave, reflejos en el agua y cielos ajustados para Minecraft Bedrock.',
         fileLabel: 'Newb-Bedrock-Shader.mcpack'
     },
     {
         id: 'br-3',
-        title: 'Actions & Animations Add-on',
+        title: 'Actions and Animations Add-on',
         type: 'addon',
         author: 'KratosMC_Lab',
         version: 'Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=400',
-        description: 'Nuevas animaciones de movimiento, cámaras más dinámicas y detalles visuales para mundos de supervivencia en Bedrock.',
+        description: 'Nuevas animaciones de movimiento y detalles visuales para mundos de supervivencia en Bedrock.',
         fileLabel: 'Actions-Bedrock.mcaddon'
     },
     {
         id: 'br-4',
-        title: 'Cave Horror & Bosses Add-on',
+        title: 'Cave Horror and Bosses Add-on',
         type: 'addon',
         author: 'NightmareBE',
         version: 'Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400',
-        description: 'Criaturas hostiles en cuevas profundas, sonidos de suspenso y encuentros especiales para partidas de terror en Bedrock.',
+        description: 'Criaturas hostiles en cuevas profundas y encuentros de terror para partidas en Bedrock.',
         fileLabel: 'Horror-Bosses-BE.mcaddon'
     },
     {
@@ -63,7 +63,7 @@ const bedrockCatalog = [
         author: 'MapMakerBR',
         version: 'Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400',
-        description: 'Mapa clásico de supervivencia en islas flotantes adaptado con cofres de inicio y retos para Bedrock Edition.',
+        description: 'Mapa clasico de supervivencia en islas flotantes adaptado para Minecraft Bedrock.',
         fileLabel: 'Skyblock-Bedrock.mctemplate'
     },
     {
@@ -73,7 +73,7 @@ const bedrockCatalog = [
         author: 'OptiBedrock',
         version: 'Bedrock 1.21+',
         image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400',
-        description: 'Reduce efectos pesados y texturas cargadas para lograr FPS estables y menor latencia en pantallas táctiles.',
+        description: 'Reduce efectos pesados y carga grafica para mantener FPS estables y baja latencia.',
         fileLabel: 'FPS-Boost-BE.mcpack'
     }
 ];
@@ -102,7 +102,7 @@ function searchBedrockMods() {
 function renderResults(items) {
     resultsContainer.innerHTML = '';
     if (items.length === 0) {
-        resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#888;">No se encontraron add-ons o recursos de Bedrock con ese filtro.</p>';
+        resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#888;">No se encontraron resultados de Bedrock.</p>';
         return;
     }
 
@@ -132,9 +132,10 @@ function openDetails(item) {
     modalMeta.textContent = `Autor: ${item.author} • ${item.version}`;
     modalDescription.textContent = item.description;
 
-    // Genera un archivo de referencia/paquete interno sin abrir páginas externas ni Java
     const blob = new Blob(
-        [`Bedrock Hub Resource Info\nNombre: ${item.title}\nTipo: ${item.type}\nVersion: ${item.version}\nArchivo objetivo: ${item.fileLabel}\n`],
+        [
+            `Bedrock Hub Resource\nNombre: ${item.title}\nTipo: ${item.type}\nVersion: ${item.version}\nArchivo: ${item.fileLabel}\n`
+        ],
         { type: 'text/plain;charset=utf-8' }
     );
     const blobUrl = URL.createObjectURL(blob);
@@ -146,7 +147,9 @@ function openDetails(item) {
 }
 
 closeModal.addEventListener('click', () => modal.classList.add('hidden'));
-window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+window.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
+});
 
 searchBtn.addEventListener('click', searchBedrockMods);
 searchInput.addEventListener('keypress', (e) => {
