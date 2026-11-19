@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bedrock Hub</title>
+    <title>Bedrock Hub - Solo Bedrock</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#121212">
     <style>
@@ -70,29 +70,29 @@
             display: block; text-align: center; background-color: #4caf50; color: #fff;
             padding: 13px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1rem;
         }
-        .download-btn.disabled { background-color: #444; pointer-events: none; }
     </style>
 </head>
 <body>
     <header>
         <h1>Bedrock Hub</h1>
-        <p>Explora y descarga contenido directo sin salir de la app</p>
+        <p>Add-ons, texturas, shaders y mapas exclusivos para Bedrock</p>
     </header>
 
     <main>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Buscar shaders, texturas, mods...">
+            <input type="text" id="searchInput" placeholder="Buscar add-ons, shaders, texturas...">
             <button id="searchBtn">Buscar</button>
         </div>
 
         <div class="filters">
-            <button class="filter-btn active" data-type="">Todo</button>
-            <button class="filter-btn" data-type="mod">Mods / Add-ons</button>
-            <button class="filter-btn" data-type="resourcepack">Texturas</button>
+            <button class="filter-btn active" data-type="all">Todo Bedrock</button>
+            <button class="filter-btn" data-type="addon">Add-ons</button>
+            <button class="filter-btn" data-type="texture">Texturas</button>
             <button class="filter-btn" data-type="shader">Shaders</button>
+            <button class="filter-btn" data-type="map">Mapas</button>
         </div>
 
-        <div id="loading" class="hidden">Buscando en servidores...</div>
+        <div id="loading" class="hidden">Filtrando contenido Bedrock...</div>
         <div id="resultsContainer" class="results-grid"></div>
     </main>
 
@@ -103,7 +103,7 @@
             <h2 id="modalTitle"></h2>
             <div id="modalMeta" class="modal-meta"></div>
             <p id="modalDescription"></p>
-            <a id="modalDownloadBtn" href="#" class="download-btn">Obteniendo enlace directo...</a>
+            <a id="modalDownloadBtn" href="#" class="download-btn">Descargar Recurso Bedrock</a>
         </div>
     </div>
 
